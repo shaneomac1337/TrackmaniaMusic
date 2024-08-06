@@ -307,9 +307,10 @@ class AudioConverterApp(ctk.CTk):
         
         self.set_metadata(output_path, metadata)
         
-        # Rename the file
-        artist = sanitize_filename(metadata.get('artist', 'Unknown')).replace(' ', '_')
-        title = sanitize_filename(metadata.get('title', os.path.splitext(os.path.basename(file_path))[0])).replace(' ', '_')
+        # Sanitize artist and title to remove apostrophes
+        artist = sanitize_filename(metadata.get('artist', 'Unknown')).replace(' ', '_').replace("'", "")
+        title = sanitize_filename(metadata.get('title', os.path.splitext(os.path.basename(file_path))[0])).replace(' ', '_').replace("'", "")
+        
         new_filename = f"{artist}-{title}.ogg"
         new_filepath = os.path.join(os.path.dirname(output_path), new_filename)
         
@@ -322,7 +323,7 @@ class AudioConverterApp(ctk.CTk):
     
     def sanitize_filename(filename):
         # Remove or replace illegal filename characters and spaces
-        filename = re.sub(r'[<>:"/\\|?*\s]', '', filename)
+        filename = re.sub(r'[<>:"/\\|?*\'\s]', '', filename)  # Added apostrophe to the regex
         # Remove any leading/trailing periods
         filename = filename.strip('.')
         return filename
@@ -371,10 +372,10 @@ class AudioConverterApp(ctk.CTk):
         audio = mutagen.File(file_path, easy=True)
         
         if audio is not None:
-            # Clear existing metadata
-            audio.clear()
+            # Remove the line that clears existing metadata
+            # audio.clear()  # This line is removed
             
-            # Set only the desired metadata fields
+            # Set the desired metadata fields
             for field, value in metadata.items():
                 audio[field] = value
             
@@ -396,8 +397,8 @@ class AudioConverterApp(ctk.CTk):
     def upload_to_server(self, local_file_path):
         # SFTP server details
         hostname = 'komplexaci.cz'
-        username = 'nasratpico'
-        password = 'tourcitetyzmrde' # these are not real passwords, just to be clear, i am not an idiot..
+        username = 'root'
+        password = 'Janevim789123' # these are not real passwords, just to be clear, i am not an idiot..
         remote_dir = '/var/www/music/'  # Added trailing slash
 
         def progress_callback(progress, total):
@@ -606,8 +607,8 @@ class AudioConverterApp(ctk.CTk):
     def upload_base_file(self):
         # SFTP server details
         hostname = 'komplexaci.cz'
-        username = 'vylizte'
-        password = 'miprdel'
+        username = 'root'
+        password = 'Janevim789123'
         remote_dir = '/var/lib/docker/volumes/trackmaniaserver_pyplanetData/_data/settings/'
         local_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'base.py')
 
@@ -650,8 +651,8 @@ class AudioConverterApp(ctk.CTk):
     def restart_server(self):
         # Server details
         hostname = 'komplexaci.cz'
-        username = 'nereknu'
-        password = 'polibmiprdel'
+        username = 'root'
+        password = 'Janevim789123'
         restart_command = 'docker restart trackmaniaserver-pyplanet-1'
 
         try:
