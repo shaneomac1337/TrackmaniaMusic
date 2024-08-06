@@ -397,8 +397,8 @@ class AudioConverterApp(ctk.CTk):
     def upload_to_server(self, local_file_path):
         # SFTP server details
         hostname = 'komplexaci.cz'
-        username = 'root'
-        password = 'Janevim789123' # these are not real passwords, just to be clear, i am not an idiot..
+        username = 'nasrat'
+        password = 'vymrdanykokoti' # these are not real passwords, just to be clear, i am not an idiot..
         remote_dir = '/var/www/music/'  # Added trailing slash
 
         def progress_callback(progress, total):
@@ -607,8 +607,8 @@ class AudioConverterApp(ctk.CTk):
     def upload_base_file(self):
         # SFTP server details
         hostname = 'komplexaci.cz'
-        username = 'root'
-        password = 'Janevim789123'
+        username = 'nasrat'
+        password = 'vymrdanykokoti'
         remote_dir = '/var/lib/docker/volumes/trackmaniaserver_pyplanetData/_data/settings/'
         local_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'base.py')
 
@@ -651,8 +651,8 @@ class AudioConverterApp(ctk.CTk):
     def restart_server(self):
         # Server details
         hostname = 'komplexaci.cz'
-        username = 'root'
-        password = 'Janevim789123'
+        username = 'nasrat'
+        password = 'vymrdanykokoti'
         restart_command = 'docker restart trackmaniaserver-pyplanet-1'
 
         try:
